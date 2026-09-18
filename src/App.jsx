@@ -1,9 +1,11 @@
 import { useState } from "react";
 import TaskForm from "./components/TaskForm";
+import Task from "./components/Task";
 
 function App() {
   const [tasks, setTasks] = useState([]);
 
+  // Adăugarea unei sarcini
   function addTask(taskName) {
     if (taskName.trim() === "") {
       return;
@@ -11,11 +13,29 @@ function App() {
 
     const newTask = {
       id: Date.now(),
-      title: taskName,
+      title: taskName.trim(),
       completed: false,
     };
 
     setTasks([...tasks, newTask]);
+  }
+
+  // Marchează sarcina ca finalizată / nefinalizată
+  function toggleTask(taskId) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId
+          ? { ...task, completed: !task.completed }
+          : task
+      )
+    );
+  }
+
+  // Șterge sarcina
+  function deleteTask(taskId) {
+    setTasks(
+      tasks.filter((task) => task.id !== taskId)
+    );
   }
 
   return (
@@ -26,9 +46,12 @@ function App() {
 
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>
-            {task.title}
-          </li>
+          <Task
+            key={task.id}
+            task={task}
+            onToggle={toggleTask}
+            onDelete={deleteTask}
+          />
         ))}
       </ul>
     </main>
@@ -36,3 +59,4 @@ function App() {
 }
 
 export default App;
+
