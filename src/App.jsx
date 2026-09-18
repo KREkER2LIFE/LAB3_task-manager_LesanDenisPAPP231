@@ -57,6 +57,7 @@ function App() {
     </main>
   );
 }
+// Am uitat sa fac comit la sarcina 9 10 deaceia trimit acelasi cod dar cu comentariu
 
 export default App;
 
