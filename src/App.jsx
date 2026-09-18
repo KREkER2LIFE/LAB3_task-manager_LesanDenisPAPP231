@@ -20,7 +20,7 @@ function App() {
     setTasks([...tasks, newTask]);
   }
 
-  // Marchează sarcina ca finalizată / nefinalizată
+  // Marcarea sarcinii ca finalizată/nefinalizată
   function toggleTask(taskId) {
     setTasks(
       tasks.map((task) =>
@@ -31,33 +31,48 @@ function App() {
     );
   }
 
-  // Șterge sarcina
+  // Ștergerea unei sarcini
   function deleteTask(taskId) {
     setTasks(
       tasks.filter((task) => task.id !== taskId)
     );
   }
 
+  // Numărul sarcinilor finalizate
+  const completedTasks = tasks.filter(
+    (task) => task.completed
+  ).length;
+
   return (
     <main>
       <h1>Task Manager</h1>
 
+      {/* Formularul pentru adăugarea sarcinilor */}
       <TaskForm onAddTask={addTask} />
 
-      <ul>
-        {tasks.map((task) => (
-          <Task
-            key={task.id}
-            task={task}
-            onToggle={toggleTask}
-            onDelete={deleteTask}
-          />
-        ))}
-      </ul>
+      {/* Statistici */}
+      <div>
+        <p>Total sarcini: {tasks.length}</p>
+        <p>Finalizate: {completedTasks}</p>
+      </div>
+
+      {/* Lista sarcinilor */}
+      {tasks.length === 0 ? (
+        <p>Nu există sarcini momentan.</p>
+      ) : (
+        <ul>
+          {tasks.map((task) => (
+            <Task
+              key={task.id}
+              task={task}
+              onToggle={toggleTask}
+              onDelete={deleteTask}
+            />
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
-// Am uitat sa fac comit la sarcina 9 10 deaceia trimit acelasi cod dar cu comentariu
 
 export default App;
-
