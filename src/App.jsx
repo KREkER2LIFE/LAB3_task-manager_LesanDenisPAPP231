@@ -7,6 +7,9 @@ function App() {
 return (
 <main>
 <h1>Task Manager</h1>
+<input type="text" name="username" placeholder="Introdu denumirea sarcini"></input>
+<button>Adauga</button>
+
 </main>
 );
 }
